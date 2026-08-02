@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estadística · ESPE — Vista previa</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+:root{
+  --navy:#0D2438; --navy-2:#16344C; --navy-3:#0A1B2A;
+  --red:#A61324; --red-2:#7E0E1B; --gold:#C9A227; --gold-2:#A9861C;
+  --paper:#F5F1E6; --paper-2:#ECE5D3; --card:#FBF9F2; --ink:#1B1B1B;
+  --slate:#57636C; --line:#D8CFB4; --line-soft:#E4DCC4;
+  --serif:'Fraunces',Georgia,serif; --sans:'IBM Plex Sans',-apple-system,Segoe UI,sans-serif; --mono:'IBM Plex Mono','Courier New',monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:inherit;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+.topbar{background:var(--navy-3);border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:50;}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--paper);cursor:pointer;}
+.brand-seal{width:34px;height:34px;flex:none;}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;}
+.brand-text .k1{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;}
+.brand-text .k2{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--paper);}
+nav.mainnav{display:flex;gap:26px;flex-wrap:wrap;}
+nav.mainnav a{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:#C9D2D8;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;cursor:pointer;}
+nav.mainnav a:hover,nav.mainnav a.active{color:var(--gold);border-color:var(--gold);}
+footer{background:var(--navy-3);color:#9FB0BB;margin-top:88px;border-top:3px solid var(--gold);}
+footer .wrap{padding:40px 32px 32px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;font-size:13.5px;}
+footer .f-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0 0 10px;}
+footer a{text-decoration:none;color:#B7C4CC;cursor:pointer;}
+footer a:hover{color:var(--paper);}
+footer .f-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;}
+.foot-legal{border-top:1px solid rgba(255,255,255,.08);margin-top:8px;padding-top:16px;font-family:var(--mono);font-size:11px;color:#7C8D97;}
+section{position:relative;z-index:1;}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:10px;}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--red);}
+h1,h2,h3,h4{font-family:var(--serif);color:var(--navy-3);margin:0;}
+.stamp-divider{height:1px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 11px);margin:56px 0;}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;padding:11px 20px;border:1px solid var(--navy-3);color:var(--navy-3);transition:background .15s,color .15s;cursor:pointer;}
+.btn:hover{background:var(--navy-3);color:var(--paper);}
+.btn.solid{background:var(--red);border-color:var(--red);color:#fff;}
+.btn.solid:hover{background:var(--red-2);border-color:var(--red-2);}
+.hero{padding:64px 0 40px;}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;}
+.hero h1{font-size:clamp(30px,4.4vw,50px);font-weight:600;line-height:1.06;margin:14px 0 20px;}
+.hero h1 em{font-style:normal;color:var(--red);}
+.hero p.lead{font-size:17px;color:var(--slate);max-width:46ch;margin:0 0 28px;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+.dossier{background:var(--card);border:1px solid var(--line);box-shadow:6px 6px 0 var(--navy-3);padding:26px 26px 22px;position:relative;}
+.dossier::before{content:"UNIDAD 01 / 03";position:absolute;top:-13px;left:22px;background:var(--red);color:#fff;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;padding:4px 10px;}
+.dossier .d-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px dashed var(--line);padding-bottom:14px;margin-bottom:14px;}
+.dossier .d-head .code{font-family:var(--mono);font-size:11.5px;color:var(--slate);line-height:1.6;}
+.dossier .d-head .code b{color:var(--navy-3);}
+.dossier .seal{width:52px;height:52px;opacity:.92;}
+.dossier .d-title{font-family:var(--serif);font-size:20px;color:var(--navy-3);margin-bottom:12px;line-height:1.25;}
+.dossier .d-rows{display:flex;flex-direction:column;gap:8px;}
+.dossier .d-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;border-bottom:1px dotted var(--line-soft);padding-bottom:6px;}
+.dossier .d-row span:first-child{color:var(--slate);text-transform:uppercase;letter-spacing:.05em;}
+.dossier .d-row span:last-child{color:var(--navy-3);font-weight:600;}
+.dossier .d-foot{margin-top:16px;display:flex;align-items:center;gap:10px;}
+.dossier .d-foot .bar{flex:1;height:6px;background:var(--paper-2);position:relative;overflow:hidden;}
+.dossier .d-foot .bar i{position:absolute;inset:0;width:33%;background:var(--gold);}
+.dossier .d-foot small{font-family:var(--mono);font-size:10.5px;color:var(--slate);white-space:nowrap;}
+.units{padding:20px 0 10px;}
+.units h2{font-size:28px;margin:10px 0 6px;}
+.units>p{color:var(--slate);max-width:60ch;margin:0 0 30px;}
+.unit-row{display:grid;grid-template-columns:90px 1fr auto;gap:26px;align-items:start;padding:28px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit;cursor:pointer;}
+.unit-row:last-child{border-bottom:1px solid var(--line);}
+.unit-badge{width:70px;height:70px;border:2px solid var(--navy-3);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;flex:none;}
+.unit-badge::before{content:"";position:absolute;inset:5px;border:1px solid var(--gold);border-radius:50%;}
+.unit-badge span{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--navy-3);}
+.unit-main .u-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--red);text-transform:uppercase;margin-bottom:6px;}
+.unit-main h3{font-size:21px;margin-bottom:8px;}
+.unit-main p{color:var(--slate);margin:0 0 12px;max-width:62ch;font-size:14.5px;}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;}
+.tag{font-family:var(--mono);font-size:10.5px;color:var(--navy-2);background:var(--paper-2);border:1px solid var(--line);padding:4px 9px;}
+.unit-go{align-self:center;font-family:var(--mono);font-size:12px;text-transform:uppercase;color:var(--navy-3);white-space:nowrap;border-bottom:1px solid var(--navy-3);padding-bottom:2px;}
+.unit-row:hover .unit-go{color:var(--red);border-color:var(--red);}
+.unit-row:hover .unit-badge{border-color:var(--red);}
+.unit-row:hover .unit-badge span{color:var(--red);}
+.strip{background:var(--navy-3);color:var(--paper);padding:50px 0;margin-top:70px;}
+.strip .wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;}
+.strip h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin:0 0 12px;}
+.strip p{font-size:14px;color:#C4D0D7;margin:0;}
+.unit-hero{background:var(--navy-3);color:var(--paper);padding:48px 0 36px;border-bottom:3px solid var(--gold);}
+.unit-hero .eyebrow{color:var(--gold);}
+.unit-hero .eyebrow::before{background:var(--gold);}
+.unit-hero h1{color:#fff;font-size:clamp(26px,3.6vw,38px);margin:12px 0 12px;max-width:24ch;}
+.unit-hero p{color:#B9C6CE;max-width:64ch;font-size:15px;}
+.unit-hero .meta-row{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;}
+.unit-hero .meta-row div{font-family:var(--mono);font-size:11px;color:#8FA1AB;text-transform:uppercase;}
+.unit-hero .meta-row b{display:block;color:var(--gold);font-size:14px;margin-top:3px;letter-spacing:0;}
+.unit-body{display:grid;grid-template-columns:220px 1fr;gap:50px;padding:44px 0 30px;align-items:start;}
+.toc{position:sticky;top:80px;border-left:2px solid var(--line);padding-left:16px;}
+.toc .toc-h{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-bottom:12px;}
+.toc ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;}
+.toc li a{text-decoration:none;font-size:12.5px;color:var(--navy-2);display:block;cursor:pointer;}
+.toc li.sub a{padding-left:12px;font-size:12px;color:var(--slate);}
+.toc li a:hover{color:var(--red);}
+.content h2.topic{font-size:24px;margin-bottom:6px;padding-top:4px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+.content h2.topic .num{font-family:var(--mono);font-size:14px;color:var(--red);font-weight:600;}
+.content .topic-intro{color:var(--slate);margin:8px 0 22px;max-width:70ch;font-size:14.5px;}
+.content h3.subtopic{font-size:17.5px;margin:30px 0 4px;color:var(--navy-3);display:flex;align-items:baseline;gap:10px;}
+.content h3.subtopic .num{font-family:var(--mono);font-size:12px;color:var(--gold-2);}
+.content p{margin:10px 0;font-size:14.5px;}
+.content ul,.content ol{margin:10px 0;padding-left:20px;font-size:14.5px;}
+.content li{margin:5px 0;}
+.card-box{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);padding:14px 18px;margin:16px 0;font-size:13.5px;}
+.card-box .cb-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.card-box.formula{border-left-color:var(--gold-2);}
+.card-box.formula .cb-label{color:var(--gold-2);}
+.dist-table{width:100%;border-collapse:collapse;margin:16px 0 22px;font-size:13px;}
+.dist-table th,.dist-table td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top;}
+.dist-table th{background:var(--navy-3);color:var(--gold);font-family:var(--mono);font-size:10.5px;text-transform:uppercase;}
+.dist-table tr:nth-child(even) td{background:var(--paper-2);}
+.soon-card{border:1px dashed var(--line);padding:32px 26px;text-align:center;margin:26px 0 10px;background:var(--card);}
+.soon-card .soon-k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--red);text-transform:uppercase;}
+.soon-card p{color:var(--slate);max-width:52ch;margin:10px auto 0;}
+.pill-status{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--gold-2);color:var(--gold-2);margin-left:6px;}
+.unit-nav{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:22px;margin-top:16px;font-family:var(--mono);font-size:12px;flex-wrap:wrap;gap:10px;}
+.unit-nav a{text-decoration:none;color:var(--navy-3);cursor:pointer;}
+.unit-nav a:hover{color:var(--red);}
+.simple-page{padding:56px 0 36px;}
+.simple-page h1{font-size:32px;margin:10px 0 16px;}
+.simple-page p{color:var(--slate);max-width:62ch;}
+.page{display:none;}
+.page.active{display:block;}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;}
+  .unit-body{grid-template-columns:1fr;}
+  .toc{position:static;border-left:none;border-top:2px solid var(--line);padding-left:0;padding-top:14px;}
+  .strip .wrap{grid-template-columns:1fr;}
+  .unit-row{grid-template-columns:52px 1fr;}
+  .unit-go{grid-column:2;}
+  nav.mainnav{gap:14px;}
+}
+.preview-banner{background:var(--gold);color:var(--navy-3);text-align:center;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;padding:8px 12px;}
+</style>
+</head>
+<body>
+
+<div class="preview-banner">VISTA PREVIA · sitio de una sola página, para ver la estructura y el estilo antes de publicar la versión multi-página</div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" data-go="home">
+      <svg class="brand-seal" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="27" stroke="#C9A227" stroke-width="2"/><circle cx="30" cy="30" r="20" stroke="#C9A227" stroke-width="1"/>
+        <path d="M30 14 L34.5 26 L47 26 L37 33.5 L41 46 L30 38 L19 46 L23 33.5 L13 26 L25.5 26 Z" fill="#C9A227"/>
+      </svg>
+      <span class="brand-text"><span class="k1">ESPE · Ciencias Exactas</span><span class="k2">Estadística</span></span>
+    </a>
+    <nav class="mainnav">
+      <a data-go="home">Inicio</a>
+      <a data-go="unidad1">Unidad 1</a>
+      <a data-go="unidad2">Unidad 2</a>
+      <a data-go="unidad3">Unidad 3</a>
+      <a data-go="ejercicios">Ejercicios</a>
+      <a data-go="recursos">Recursos</a>
+      <a data-go="acerca">Acerca de</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===================== HOME ===================== -->
+<div class="page active" id="page-home">
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Expediente de curso · MATG</div>
+        <h1>Estadística <em>Descriptiva</em> y Cálculo de Probabilidades</h1>
+        <p class="lead">Material de estudio, notas de clase y aplicación con software estadístico para el curso de Estadística de la Universidad de las Fuerzas Armadas ESPE.</p>
+        <div class="hero-cta">
+          <a class="btn solid" data-go="unidad1">Empezar en Unidad 1 →</a>
+          <a class="btn" data-go="home" onclick="document.getElementById('unidades').scrollIntoView({behavior:'smooth'})">Ver las 3 unidades</a>
+        </div>
+      </div>
+      <div class="dossier">
+        <div class="d-head">
+          <div class="code">CÓDIGO&nbsp;&nbsp;<b>MATG-EST01</b><br>NRC&nbsp;&nbsp;<b>Vigente 2026</b></div>
+          <svg class="seal" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="27" stroke="#A61324" stroke-width="2"/><circle cx="30" cy="30" r="20" stroke="#A61324" stroke-width="1"/>
+            <path d="M30 14 L34.5 26 L47 26 L37 33.5 L41 46 L30 38 L19 46 L23 33.5 L13 26 L25.5 26 Z" fill="#A61324"/>
+          </svg>
+        </div>
+        <div class="d-title">Estadística Descriptiva y Cálculo de Probabilidades</div>
+        <div class="d-rows">
+          <div class="d-row"><span>Unidad 1</span><span>Descriptiva &amp; Probabilidad</span></div>
+          <div class="d-row"><span>Unidad 2</span><span>Inferencia Estadística</span></div>
+          <div class="d-row"><span>Unidad 3</span><span>Regresión &amp; No Paramétricas</span></div>
+          <div class="d-row"><span>Software</span><span>R / Python</span></div>
+        </div>
+        <div class="d-foot"><div class="bar"><i></i></div><small>Unidad 1 disponible</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stamp-divider"></div>
+
+  <section class="units" id="unidades">
+    <div class="eyebrow">Contenido del curso</div>
+    <h2>Unidades</h2>
+    <p>Tres unidades secuenciales: de los fundamentos de la estadística descriptiva y la probabilidad, a la inferencia estadística, y finalmente a los modelos de regresión y las pruebas no paramétricas.</p>
+
+    <a class="unit-row" data-go="unidad1">
+      <div class="unit-badge"><span>1</span></div>
+      <div class="unit-main">
+        <div class="u-eyebrow">Disponible</div>
+        <h3>Estadística Descriptiva y Cálculo de Probabilidades</h3>
+        <p>Análisis exploratorio de datos, medidas descriptivas, software estadístico, axiomas de probabilidad, variables aleatorias y distribuciones discretas y continuas.</p>
+        <div class="tag-row"><span class="tag">Medidas descriptivas</span><span class="tag">Teorema de Bayes</span><span class="tag">Variables aleatorias</span><span class="tag">Distribuciones</span></div>
+      </div>
+      <div class="unit-go">Ver unidad →</div>
+    </a>
+    <a class="unit-row" data-go="unidad2">
+      <div class="unit-badge"><span>2</span></div>
+      <div class="unit-main">
+        <div class="u-eyebrow">En construcción</div>
+        <h3>Inferencia Estadística</h3>
+        <p>Diseños muestrales, distribución muestral de la media, teorema central del límite, estimación y contrastes de hipótesis.</p>
+        <div class="tag-row"><span class="tag">Muestreo</span><span class="tag">TCL</span><span class="tag">Estimación</span><span class="tag">Pruebas de hipótesis</span></div>
+      </div>
+      <div class="unit-go">Ver estructura →</div>
+    </a>
+    <a class="unit-row" data-go="unidad3">
+      <div class="unit-badge"><span>3</span></div>
+      <div class="unit-main">
+        <div class="u-eyebrow">En construcción</div>
+        <h3>Modelos de Regresión y Pruebas No Paramétricas</h3>
+        <p>Regresión simple y múltiple, ANOVA y pruebas no paramétricas: Wilcoxon, Mann-Whitney, Kruskal-Wallis, Spearman y Chi-cuadrado.</p>
+        <div class="tag-row"><span class="tag">Regresión lineal</span><span class="tag">ANOVA</span><span class="tag">No paramétricas</span><span class="tag">Chi-cuadrado</span></div>
+      </div>
+      <div class="unit-go">Ver estructura →</div>
+    </a>
+  </section>
+</main>
+<section class="strip">
+  <div class="wrap">
+    <div><h4>Sobre el curso</h4><p>Curso de Estadística y Cálculo de Probabilidades de la ESPE. Combina fundamentos teóricos con aplicación práctica en software estadístico.</p></div>
+    <div><h4>Evaluación en línea</h4><p>El cuestionario de la Unidad 1 está en el campus virtual: <a href="https://micampus.espe.edu.ec/mod/quiz/view.php?id=590523" style="color:#E7C766;" target="_blank" rel="noopener">Moodle ↗</a></p></div>
+    <div><h4>Software</h4><p>Aplicaciones prácticas con software estadístico libre (R) y Python para cálculo numérico y simbólico.</p></div>
+  </div>
+</section>
+</div>
+
+<!-- ===================== UNIDAD 1 ===================== -->
+<div class="page" id="page-unidad1">
+<section class="unit-hero"><div class="wrap">
+  <div class="eyebrow">Unidad 1 de 3</div>
+  <h1>Estadística Descriptiva y Cálculo de Probabilidades</h1>
+  <p>Del análisis exploratorio de datos a las distribuciones de probabilidad: los cimientos de toda la inferencia estadística.</p>
+  <div class="meta-row">
+    <div>Bloque 1<b>Análisis exploratorio</b></div>
+    <div>Bloque 2<b>Teoría de probabilidad</b></div>
+    <div>Software<b>R / Python</b></div>
+    <div>Evaluación<b><a href="https://micampus.espe.edu.ec/mod/quiz/view.php?id=590523" style="color:#C9A227;" target="_blank" rel="noopener">Moodle ↗</a></b></div>
+  </div>
+</div></section>
+<main class="wrap unit-body">
+  <aside class="toc"><div class="toc-h">Contenido — Unidad 1</div><ul>
+    <li><a href="#s11">1.1 Análisis exploratorio de datos</a></li>
+    <li class="sub"><a href="#s111">1.1.1 Introducción y medidas descriptivas</a></li>
+    <li class="sub"><a href="#s112">1.1.2 Software estadístico</a></li>
+    <li><a href="#s12">1.2 Teoría de probabilidad</a></li>
+    <li class="sub"><a href="#s121">1.2.1 Axiomas, reglas y conteo</a></li>
+    <li class="sub"><a href="#s122">1.2.2 Variables aleatorias, E(X) y Var(X)</a></li>
+    <li class="sub"><a href="#s123">1.2.3 Distribuciones de probabilidad</a></li>
+    <li class="sub"><a href="#s124">1.2.4 Aplicación con software</a></li>
+  </ul></aside>
+  <div class="content">
+    <h2 class="topic" id="s11"><span class="num">1.1</span> Análisis exploratorio de datos</h2>
+    <p class="topic-intro">El punto de partida de cualquier análisis estadístico: describir lo que los datos muestran antes de generalizar o inferir.</p>
+
+    <h3 class="subtopic" id="s111"><span class="num">1.1.1</span> Introducción a la Estadística. Medidas de tendencia central, dispersión, posición y forma</h3>
+    <p>La <strong>Estadística</strong> recolecta, organiza, resume, analiza e interpreta datos para tomar decisiones ante la incertidumbre. Se divide en <strong>estadística descriptiva</strong> (resume la información) y <strong>estadística inferencial</strong> (generaliza de la muestra a la población, Unidad 2).</p>
+    <p><strong>Población</strong>: conjunto completo de interés. <strong>Muestra</strong>: subconjunto representativo. <strong>Variable</strong>: cualitativa (nominal/ordinal) o cuantitativa (discreta/continua). <strong>Parámetro</strong> (población) vs. <strong>estadístico</strong> (muestra).</p>
+    <div class="card-box"><div class="cb-label">Tendencia central</div><ul><li><strong>Media</strong> — promedio de los valores.</li><li><strong>Mediana</strong> — valor central ordenado.</li><li><strong>Moda</strong> — valor más frecuente.</li></ul></div>
+    <div class="card-box formula"><div class="cb-label">Media muestral</div><span class="fm">\[ \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i \]</span></div>
+    <div class="card-box"><div class="cb-label">Dispersión</div><ul><li><strong>Rango</strong> — máximo menos mínimo.</li><li><strong>Varianza</strong> — promedio de desviaciones al cuadrado.</li><li><strong>Desviación estándar</strong> — raíz de la varianza.</li><li><strong>Coef. de variación</strong> — dispersión relativa a la media.</li></ul></div>
+    <div class="card-box formula"><div class="cb-label">Varianza y desviación estándar</div><span class="fm">\[ s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2 \qquad s = \sqrt{s^2} \]</span></div>
+    <div class="card-box"><div class="cb-label">Posición</div><ul><li><strong>Cuartiles</strong> (Q1, Q2, Q3).</li><li><strong>Deciles y percentiles</strong>.</li><li><strong>RIC = Q3 − Q1</strong> — base para valores atípicos.</li></ul></div>
+    <div class="card-box"><div class="cb-label">Forma</div><ul><li><strong>Asimetría</strong> — sesgo derecho/izquierdo/simétrico.</li><li><strong>Curtosis</strong> — apuntamiento respecto a la normal.</li></ul></div>
+
+    <h3 class="subtopic" id="s112"><span class="num">1.1.2</span> Introducción al uso de software estadístico</h3>
+    <ul>
+      <li><strong>Instalación y operaciones básicas</strong> — entorno (R/RStudio o Python), sintaxis y consola.</li>
+      <li><strong>Objetos</strong> — vectores, listas, data frames.</li>
+      <li><strong>Importación de datos</strong> — CSV, Excel, texto.</li>
+      <li><strong>Tablas de frecuencias</strong> — conteo por categoría/intervalo.</li>
+      <li><strong>Métodos gráficos</strong> — histogramas, boxplot, barras, dispersión.</li>
+      <li><strong>Medidas descriptivas</strong> — cálculo automático sobre datos reales.</li>
+    </ul>
+
+    <div class="stamp-divider"></div>
+
+    <h2 class="topic" id="s12"><span class="num">1.2</span> Teoría de probabilidad</h2>
+    <p class="topic-intro">El lenguaje matemático de la incertidumbre, base formal de la inferencia estadística.</p>
+
+    <h3 class="subtopic" id="s121"><span class="num">1.2.1</span> Introducción a las probabilidades. Axiomas y reglas</h3>
+    <p>Un <strong>experimento aleatorio</strong> tiene resultado impredecible. El <strong>espacio muestral</strong> (Ω) contiene todos los resultados posibles; un <strong>evento</strong> es un subconjunto de Ω.</p>
+    <div class="card-box formula"><div class="cb-label">Axiomas de Kolmogórov</div><span class="fm">\[ 0 \le P(A) \le 1, \quad P(\Omega)=1, \quad P\Big(\bigcup_i A_i\Big)=\sum_i P(A_i)\ \text{(disjuntos)} \]</span></div>
+    <div class="card-box"><div class="cb-label">Reglas fundamentales</div><ul>
+      <li><strong>Adición</strong>: <span class="fm">\( P(A\cup B)=P(A)+P(B)-P(A\cap B) \)</span></li>
+      <li><strong>Conjunta</strong>: <span class="fm">\( P(A\cap B)=P(A)P(B\mid A) \)</span></li>
+      <li><strong>Independencia</strong>: <span class="fm">\( P(A\cap B)=P(A)P(B) \)</span></li>
+      <li><strong>Bayes</strong>: <span class="fm">\( P(A\mid B)=\dfrac{P(B\mid A)P(A)}{P(B)} \)</span></li>
+    </ul></div>
+    <p>Las <strong>técnicas de conteo</strong> (principio multiplicativo, permutaciones, combinaciones) junto con <strong>tablas de contingencia</strong> y <strong>diagramas de árbol</strong> organizan probabilidades conjuntas y condicionales.</p>
+
+    <h3 class="subtopic" id="s122"><span class="num">1.2.2</span> Variables aleatorias, esperanza matemática y varianza</h3>
+    <p>Una <strong>variable aleatoria</strong> (X) asigna un valor numérico a cada resultado: <em>discreta</em> (valores contables) o <em>continua</em> (cualquier valor en un intervalo).</p>
+    <div class="card-box formula"><div class="cb-label">Esperanza y varianza</div>
+      <span class="fm">\[ E(X)=\sum_x x\,P(X=x)\ \text{(discreta)} \qquad E(X)=\int_{-\infty}^{\infty} x f(x)\,dx\ \text{(continua)} \]</span>
+      <span class="fm">\[ Var(X)=E[(X-E(X))^2]=E(X^2)-[E(X)]^2 \]</span>
+    </div>
+
+    <h3 class="subtopic" id="s123"><span class="num">1.2.3</span> Distribuciones de probabilidad</h3>
+    <table class="dist-table"><thead><tr><th>Discreta</th><th>Modela</th><th>Parámetros</th></tr></thead><tbody>
+      <tr><td>Uniforme</td><td>Resultados igualmente probables</td><td>n valores</td></tr>
+      <tr><td>Binomial</td><td>Éxitos en n ensayos independientes</td><td>n, p</td></tr>
+      <tr><td>Geométrica</td><td>Ensayos hasta el primer éxito</td><td>p</td></tr>
+      <tr><td>Hipergeométrica</td><td>Éxitos al muestrear sin reemplazo</td><td>N, K, n</td></tr>
+      <tr><td>Poisson</td><td>Eventos raros por intervalo</td><td>λ</td></tr>
+    </tbody></table>
+    <table class="dist-table"><thead><tr><th>Continua</th><th>Modela</th><th>Parámetros</th></tr></thead><tbody>
+      <tr><td>Uniforme</td><td>Igual densidad en [a, b]</td><td>a, b</td></tr>
+      <tr><td>Normal</td><td>Curva de campana</td><td>μ, σ</td></tr>
+      <tr><td>Exponencial</td><td>Tiempo de espera hasta un evento</td><td>λ</td></tr>
+    </tbody></table>
+    <div class="card-box formula"><div class="cb-label">Ejemplos: Binomial y Normal</div>
+      <span class="fm">\[ P(X=k)=\binom{n}{k}p^k(1-p)^{n-k} \]</span>
+      <span class="fm">\[ f(x)=\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac12\left(\frac{x-\mu}{\sigma}\right)^2} \]</span>
+    </div>
+
+    <h3 class="subtopic" id="s124"><span class="num">1.2.4</span> Aplicación con software estadístico</h3>
+    <p>Cálculo de probabilidades puntuales/acumuladas, generación de números aleatorios y graficación de funciones de masa/densidad y acumuladas (familias <code>d/p/q/r</code> en R o <code>scipy.stats</code> en Python).</p>
+  </div>
+</main>
+<div class="wrap"><div class="unit-nav"><a data-go="home">← Volver al índice</a><a data-go="unidad2">Unidad 2 →</a></div></div>
+</div>
+
+<!-- ===================== UNIDAD 2 ===================== -->
+<div class="page" id="page-unidad2">
+<section class="unit-hero"><div class="wrap">
+  <div class="eyebrow">Unidad 2 de 3</div>
+  <h1>Inferencia Estadística</h1>
+  <p>De la muestra a la población: estimar parámetros y contrastar hipótesis con un margen de error controlado.</p>
+  <div class="meta-row"><div>Bloque 1<b>Diseños muestrales</b></div><div>Bloque 2<b>Estimación</b></div><div>Bloque 3<b>Contrastes</b></div><div>Estado<b style="color:#E7C766;">En construcción</b></div></div>
+</div></section>
+<main class="wrap unit-body">
+  <aside class="toc"><div class="toc-h">Contenido — Unidad 2</div><ul>
+    <li><a href="#s21">2.1 Análisis exploratorio</a></li><li><a href="#s22">2.2 Estimación</a></li><li><a href="#s23">2.3 Contrastes de hipótesis</a></li>
+  </ul></aside>
+  <div class="content">
+    <div class="soon-card"><div class="soon-k">Contenido teórico en desarrollo</div><p>Estructura completa lista; el desarrollo teórico se está preparando. Mientras tanto, revisa la <a data-go="unidad1">Unidad 1</a>, disponible por completo.</p></div>
+
+    <h2 class="topic" id="s21"><span class="num">2.1</span> Análisis exploratorio de datos <span class="pill-status">Próximamente</span></h2>
+    <h3 class="subtopic"><span class="num">2.1.1</span> Diseños muestrales</h3>
+    <p>Muestreo <strong>aleatorio simple</strong>, <strong>sistemático</strong>, <strong>estratificado</strong> y <strong>por conglomerados</strong>.</p>
+    <div class="stamp-divider"></div>
+    <h2 class="topic" id="s22"><span class="num">2.2</span> Estimación <span class="pill-status">Próximamente</span></h2>
+    <h3 class="subtopic"><span class="num">2.2.1</span> Distribución muestral de la media</h3><p>Comportamiento probabilístico de la media muestral en repetidas muestras.</p>
+    <h3 class="subtopic"><span class="num">2.2.2</span> Teorema central del límite</h3><p>La distribución de la media muestral tiende a normal al crecer n.</p>
+    <h3 class="subtopic"><span class="num">2.2.3</span> Estimación puntual y por intervalos</h3><p>Un valor único, o un rango con nivel de confianza dado.</p>
+    <h3 class="subtopic"><span class="num">2.2.4</span> Cálculo de tamaños de muestra</h3><p>Observaciones necesarias para un margen de error y confianza deseados.</p>
+    <div class="stamp-divider"></div>
+    <h2 class="topic" id="s23"><span class="num">2.3</span> Contrastes de hipótesis <span class="pill-status">Próximamente</span></h2>
+    <h3 class="subtopic"><span class="num">2.3.1</span> Prueba de hipótesis para la media</h3><p>Contraste sobre el valor de la media poblacional.</p>
+    <h3 class="subtopic"><span class="num">2.3.2</span> Prueba de hipótesis para la proporción</h3><p>Contraste sobre una proporción poblacional.</p>
+    <h3 class="subtopic"><span class="num">2.3.3</span> Prueba de hipótesis para la varianza</h3><p>Contraste sobre la dispersión poblacional.</p>
+    <h3 class="subtopic"><span class="num">2.3.4</span> Prueba de hipótesis para dos medias</h3><p>Comparación de medias de dos poblaciones.</p>
+    <h3 class="subtopic"><span class="num">2.3.5</span> Prueba de hipótesis para la razón de varianzas</h3><p>Comparación de dispersión entre dos poblaciones.</p>
+    <h3 class="subtopic"><span class="num">2.3.6</span> Prueba de hipótesis para dos proporciones</h3><p>Comparación de proporciones entre dos poblaciones.</p>
+    <h3 class="subtopic"><span class="num">2.3.7</span> Aplicación con software estadístico</h3><p>Implementación y lectura del p-valor con software.</p>
+  </div>
+</main>
+<div class="wrap"><div class="unit-nav"><a data-go="unidad1">← Unidad 1</a><a data-go="unidad3">Unidad 3 →</a></div></div>
+</div>
+
+<!-- ===================== UNIDAD 3 ===================== -->
+<div class="page" id="page-unidad3">
+<section class="unit-hero"><div class="wrap">
+  <div class="eyebrow">Unidad 3 de 3</div>
+  <h1>Modelos de Regresión y Pruebas No Paramétricas</h1>
+  <p>Modelar relaciones entre variables y qué hacer cuando los supuestos clásicos no se cumplen.</p>
+  <div class="meta-row"><div>Bloque 1<b>Regresión simple</b></div><div>Bloque 2<b>Regresión múltiple</b></div><div>Bloque 3<b>ANOVA</b></div><div>Bloque 4<b>No paramétricas</b></div></div>
+</div></section>
+<main class="wrap unit-body">
+  <aside class="toc"><div class="toc-h">Contenido — Unidad 3</div><ul>
+    <li><a href="#s31">3.1 Regresión simple</a></li><li><a href="#s32">3.2 Regresión múltiple</a></li><li><a href="#s33">3.3 ANOVA</a></li><li><a href="#s34">3.4 No paramétricas</a></li>
+  </ul></aside>
+  <div class="content">
+    <div class="soon-card"><div class="soon-k">Contenido teórico en desarrollo</div><p>Estructura completa lista; el desarrollo teórico se está preparando. Mientras tanto, revisa la <a data-go="unidad1">Unidad 1</a>, disponible por completo.</p></div>
+
+    <h2 class="topic" id="s31"><span class="num">3.1</span> Regresión simple <span class="pill-status">Próximamente</span></h2>
+    <h3 class="subtopic"><span class="num">3.1.1</span> Definiciones básicas</h3><p>Variable dependiente/independiente y término de error.</p>
+    <h3 class="subtopic"><span class="num">3.1.2</span> Estimación por mínimos cuadrados</h3><p>Minimiza la suma de errores al cuadrado.</p>
+    <h3 class="subtopic"><span class="num">3.1.3</span> Modelo lineal, exponencial, logarítmico y potencial</h3><p>Formas funcionales linealizables.</p>
+    <h3 class="subtopic"><span class="num">3.1.4</span> Inferencia, predicción y diagnosis</h3><p>Significancia, predicción y residuos.</p>
+    <h3 class="subtopic"><span class="num">3.1.5</span> Aplicación con software</h3><p>Ajuste y diagnóstico con software.</p>
+    <div class="stamp-divider"></div>
+    <h2 class="topic" id="s32"><span class="num">3.2</span> Regresión lineal múltiple <span class="pill-status">Próximamente</span></h2>
+    <h3 class="subtopic"><span class="num">3.2.1</span> Matriz de varianzas–covarianzas y correlaciones</h3><p>Relación simultánea entre predictores y respuesta.</p>
+    <h3 class="subtopic"><span class="num">3.2.2</span> Modelo matricial</h3><p>Formulación matricial y solución por mínimos cuadrados.</p>
+    <h3 class="subtopic"><span class="num">3.2.3</span> Inferencia, predicción y diagnosis</h3><p>Significancia conjunta, multicolinealidad, validación.</p>
+    <h3 class="subtopic"><span class="num">3.2.4</span> Aplicación con software</h3><p>Ajuste e interpretación con software.</p>
+    <div class="stamp-divider"></div>
+    <h2 class="topic" id="s33"><span class="num">3.3</span> ANOVA <span class="pill-status">Próximamente</span></h2>
+    <h3 class="subtopic"><span class="num">3.3.1</span> ANOVA de un factor</h3><p>Comparación de medias de 3+ grupos.</p>
+    <h3 class="subtopic"><span class="num">3.3.2</span> Homogeneidad y post hoc</h3><p>Igualdad de varianzas y comparaciones múltiples.</p>
+    <h3 class="subtopic"><span class="num">3.3.3</span> Software: homogeneidad y normalidad</h3><p>Verificación de supuestos e implementación.</p>
+    <div class="stamp-divider"></div>
+    <h2 class="topic" id="s34"><span class="num">3.4</span> Pruebas no paramétricas <span class="pill-status">Próximamente</span></h2>
+    <h3 class="subtopic"><span class="num">3.4.1</span> Wilcoxon</h3><p>Dos muestras relacionadas.</p>
+    <h3 class="subtopic"><span class="num">3.4.2</span> Mann-Whitney</h3><p>Dos muestras independientes.</p>
+    <h3 class="subtopic"><span class="num">3.4.3</span> Kruskal-Wallis</h3><p>Tres o más grupos independientes.</p>
+    <h3 class="subtopic"><span class="num">3.4.4</span> Rangos de Spearman</h3><p>Correlación no paramétrica.</p>
+    <h3 class="subtopic"><span class="num">3.4.5</span> Chi-cuadrado</h3><p>Bondad de ajuste e independencia.</p>
+    <h3 class="subtopic"><span class="num">3.4.6</span> Aplicación con software</h3><p>Implementación de las pruebas anteriores.</p>
+  </div>
+</main>
+<div class="wrap"><div class="unit-nav"><a data-go="unidad2">← Unidad 2</a><a data-go="home">Volver al índice →</a></div></div>
+</div>
+
+<!-- ===================== EJERCICIOS ===================== -->
+<div class="page" id="page-ejercicios">
+<main class="wrap simple-page">
+  <div class="eyebrow">Práctica</div><h1>Ejercicios</h1>
+  <p>Aquí se irán publicando los ejercicios organizados por tema y por unidad, junto con ejemplos resueltos.</p>
+  <div class="soon-card" style="margin-top:26px;"><div class="soon-k">En construcción</div>
+    <p>Mientras se publica el banco de ejercicios, refuerza los conceptos en la <a data-go="unidad1">Unidad 1</a>, o resuelve el cuestionario del campus virtual.</p>
+    <p style="margin-top:14px;"><a href="https://micampus.espe.edu.ec/mod/quiz/view.php?id=590523" class="btn solid" target="_blank" rel="noopener" style="text-decoration:none;">Cuestionario Unidad 1 en Moodle ↗</a></p>
+  </div>
+</main>
+</div>
+
+<!-- ===================== RECURSOS ===================== -->
+<div class="page" id="page-recursos">
+<main class="wrap simple-page">
+  <div class="eyebrow">Material de apoyo</div><h1>Recursos</h1>
+  <p>Software, guías de instalación y material complementario para seguir el curso.</p>
+  <div class="stamp-divider"></div>
+  <div class="unit-row" style="grid-template-columns:1fr;"><div class="unit-main"><h3>Software estadístico</h3><p>El curso usa <strong>R / RStudio</strong> para tablas de frecuencias, gráficos y modelos, y <strong>Python</strong> (pandas, numpy, scipy) para cálculo numérico y simbólico.</p></div></div>
+  <div class="unit-row" style="grid-template-columns:1fr;"><div class="unit-main"><h3>Campus virtual</h3><p>Cuestionarios y material adicional en <a href="https://micampus.espe.edu.ec/" target="_blank" rel="noopener">micampus.espe.edu.ec</a>.</p></div></div>
+  <div class="unit-row" style="grid-template-columns:1fr;border-bottom:1px solid var(--line);"><div class="unit-main"><h3>Bibliografía</h3><p>Montgomery &amp; Runger, <em>Probabilidad y Estadística para Ingeniería</em>; Walpole et al., <em>Probabilidad y Estadística para Ingeniería y Ciencias</em>.</p></div></div>
+  <div class="soon-card" style="margin-top:10px;"><div class="soon-k">En construcción</div><p>Próximamente: guías de instalación, scripts de ejemplo y resúmenes descargables.</p></div>
+</main>
+</div>
+
+<!-- ===================== ACERCA DE ===================== -->
+<div class="page" id="page-acerca">
+<main class="wrap simple-page">
+  <div class="eyebrow">Expediente del curso</div><h1>Acerca de</h1>
+  <p>Estadística Descriptiva y Cálculo de Probabilidades es la primera de tres unidades del curso de Estadística de la ESPE.</p>
+  <div class="stamp-divider"></div>
+  <h3 style="font-family:var(--serif);font-size:20px;margin-bottom:12px;">Syllabus resumido</h3>
+  <table class="dist-table"><thead><tr><th>Unidad</th><th>Tema</th><th>Estado</th></tr></thead><tbody>
+    <tr><td>1</td><td>Estadística Descriptiva y Cálculo de Probabilidades</td><td>Disponible</td></tr>
+    <tr><td>2</td><td>Inferencia Estadística</td><td>En construcción</td></tr>
+    <tr><td>3</td><td>Modelos de Regresión y Pruebas No Paramétricas</td><td>En construcción</td></tr>
+  </tbody></table>
+  <h3 style="font-family:var(--serif);font-size:20px;margin:30px 0 12px;">Evaluación</h3>
+  <p>Cuestionario de la Unidad 1: <a href="https://micampus.espe.edu.ec/mod/quiz/view.php?id=590523" target="_blank" rel="noopener">Estadística Descriptiva (Moodle) ↗</a>.</p>
+</main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="f-col"><h4>Curso</h4><ul><li><a data-go="unidad1">Unidad 1</a></li><li><a data-go="unidad2">Unidad 2</a></li><li><a data-go="unidad3">Unidad 3</a></li></ul></div>
+    <div class="f-col"><h4>Recursos</h4><ul><li><a data-go="ejercicios">Ejercicios</a></li><li><a data-go="recursos">Recursos</a></li><li><a data-go="acerca">Acerca de</a></li></ul></div>
+    <div class="f-col"><h4>Institución</h4><ul><li><a href="https://www.espe.edu.ec/" target="_blank" rel="noopener">ESPE</a></li><li><a href="https://micampus.espe.edu.ec/" target="_blank" rel="noopener">Campus Virtual</a></li></ul></div>
+  </div>
+  <div class="wrap foot-legal">2026 · Departamento de Ciencias Exactas — ESPE · Material de estudio de uso académico</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script>
+  function go(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-'+id).classList.add('active');
+    document.querySelectorAll('nav.mainnav a').forEach(a=>a.classList.remove('active'));
+    document.querySelectorAll('nav.mainnav a[data-go="'+id+'"]').forEach(a=>a.classList.add('active'));
+    window.scrollTo({top:0});
+  }
+  document.querySelectorAll('[data-go]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      go(this.getAttribute('data-go'));
+    });
+  });
+  document.querySelectorAll('.fm').forEach(function(el){
+    try{
+      katex.render(el.textContent.trim().replace(/^\\\[/,'').replace(/\\\]$/,''), el, {displayMode:true, throwOnError:false});
+    }catch(e){}
+  });
+</script>
+</body>
+</html>
